@@ -30,6 +30,7 @@ def test_guest_can_add_product_to_basket(browser, link_end):
     page.should_be_correct_product_name()
     page.should_be_correct_product_price()
 
+@pytest.mark.xfail(reason="Has to fail as success message should be present after adding to cart")
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     """Checking for 4 seconds if success message is absent after adding to cart."""
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1"
@@ -38,7 +39,7 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     page.add_to_cart()
     page.should_not_be_success_message()
 
-@pytest.mark.xFail(reason="Success message disappearing in 4 sec after adding to cart has not been implemented yet")
+@pytest.mark.xfail(reason="Success message disappearing in 4 sec after adding to cart has not been implemented yet")
 def test_message_disappeared_after_adding_product_to_basket(browser):
     """Checking for 4 seconds if success message disappears after adding to cart."""
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1"
@@ -46,3 +47,25 @@ def test_message_disappeared_after_adding_product_to_basket(browser):
     page.open()
     page.add_to_cart()
     page.should_disappear_success_message()
+
+def test_guest_should_see_login_link_on_product_page(browser):
+    """Checking if the page has login link present."""
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = ProductPage(browser, link)
+    page.open()
+    page.should_be_login_link()
+
+def test_guest_can_go_to_login_page_from_product_page(browser):
+    """Checking if it's possible to go to the login page.
+
+    opening browser ->
+    clicking the logink link -> 
+    checking if the page opened is a login page
+
+    """
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = ProductPage(browser, link)
+    page.open()
+    page.should_be_login_link()
+    page.go_to_login_page()
+    page.should_be_login_url()
