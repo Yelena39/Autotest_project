@@ -8,6 +8,7 @@ class LoginPageLocators():
 	REGISTER_FORM = (By.CSS_SELECTOR, "#register_form")
 
 class ProductPageLocators():
+	SUCCESS_MESSAGE = (By.CSS_SELECTOR, ".alert-success")
 	ADD_TO_CART_BUTTON = (By.CSS_SELECTOR, ".btn-add-to-basket")
 	BOOK_NAME = (By.CSS_SELECTOR, ".product_main h1")
 	BOOK_PRICE = (By.CSS_SELECTOR, ".product_main .price_color")
