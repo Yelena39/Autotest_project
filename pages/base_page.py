@@ -38,6 +38,11 @@ class BasePage():
 
 		return False
 
+	def go_to_basket_page(self):
+		"""Clicking the "View basket" button on the top of the page."""
+		link = self.browser.find_element(*BasePageLocators.VIEW_BASKET_BUTTON)
+		link.click()
+
 	def go_to_login_page(self):
 		"""Clicking the link with the login_link id."""
 		link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
@@ -45,6 +50,14 @@ class BasePage():
 
 	def open(self):
 		self.browser.get(self.url)
+
+	def should_be_basket_btn(self):
+		"""Checking if the page has the "View basket" button on the top of the page."""
+		assert self.is_element_present(*BasePageLocators.VIEW_BASKET_BUTTON), "The 'View basket' button is not present on the page"
+
+	def should_be_basket_url(self):
+		"""Checking if the current page url has the "basket" word in it."""
+		assert "basket" in self.browser.current_url, "Basket page link is incorrect"
 
 	def should_be_login_link(self):
 		"""Checking if the page has a link with login_link id."""

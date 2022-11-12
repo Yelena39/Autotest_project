@@ -1,5 +1,6 @@
 import pytest
 from .pages.product_page import ProductPage
+from .pages.basket_page import BasketPage
 
 def test_guest_cant_see_success_message(browser):
     """Checking for 4 seconds if success message is absent after the page is loaded."""
@@ -69,3 +70,24 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page.should_be_login_link()
     page.go_to_login_page()
     page.should_be_login_url()
+
+@pytest.mark.new
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    """Checking if the basket is empty.
+
+    opening browser ->
+    checking if the product page has "View basket" button ->
+    clicking the "View basket" button ->
+    checking if current page url has "basket" word in it ->
+    checking if the basket is empty ->
+    checking if there is 'Your basket is empty' message on the page
+
+    """
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = BasketPage(browser, link)
+    page.open()
+    page.should_be_basket_btn()
+    page.go_to_basket_page()
+    page.should_be_basket_url()
+    page.should_be_empty_basket()
+    page.should_be_empty_basket_message()
