@@ -49,7 +49,12 @@ class BasePage():
 		link.click()
 
 	def open(self):
+		"""Opening browser at given url."""
 		self.browser.get(self.url)
+
+	def should_be_authorized_user(self):
+		"""Checking if the page has the user icon."""
+		assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented, probably unauthorised user"
 
 	def should_be_basket_btn(self):
 		"""Checking if the page has the "View basket" button on the top of the page."""

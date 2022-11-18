@@ -1,6 +1,57 @@
 import pytest
+import time
 from .pages.product_page import ProductPage
 from .pages.basket_page import BasketPage
+from .pages.login_page import LoginPage
+
+@pytest.mark.registered_user
+class TestUserAddToBasketFromProductPage():
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        """Registering new user.
+
+        opening browser ->
+        going to the login page -> 
+        generating email ->
+        enerating password ->
+        entering email and password into registration form and clicking "Register" ->
+        checking if the new user is authorized
+
+        """
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1"
+        page = LoginPage(browser, link)
+        page.open()
+        page.go_to_login_page()
+        email = str(time.time()) + "@fakemail.org"
+        password = str(time.time())
+        page.register_new_user(email, password)
+        page.should_be_authorized_user()
+
+    def test_user_cant_see_success_message(self, browser):
+        """Checking for 4 seconds if success message is absent after the page is loaded."""
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1"
+        page = ProductPage(browser, link)
+        page.open()
+        page.should_not_be_success_message()
+
+    def test_user_can_add_product_to_basket(self, browser):
+        """Checking the process of adding the product to cart.
+
+        opening browser ->
+        checking if success message is absent from the page -> 
+        clicking "Add to basket" button ->
+        checking if the product name in success message is correct ->
+        checking if the product price in success message is correct
+
+        """
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1"
+        page = ProductPage(browser, link)
+        page.open()
+        page.add_to_cart()
+        page.should_be_success_message()
+        page.should_be_correct_product_name()
+        page.should_be_correct_product_price()
+
 
 def test_guest_cant_see_success_message(browser):
     """Checking for 4 seconds if success message is absent after the page is loaded."""
