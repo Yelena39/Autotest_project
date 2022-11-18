@@ -34,6 +34,7 @@ class TestUserAddToBasketFromProductPage():
         page.open()
         page.should_not_be_success_message()
 
+    @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser):
         """Checking the process of adding the product to cart.
 
@@ -60,7 +61,7 @@ def test_guest_cant_see_success_message(browser):
     page.open()
     page.should_not_be_success_message()
 
-@pytest.mark.skip
+@pytest.mark.need_review
 @pytest.mark.parametrize('link_end', [*range(7), 
                                      pytest.param(7, marks=pytest.mark.xfail(reason="Product name in success message is wrong")), 
                                      *range(8, 10)])
@@ -91,7 +92,7 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     page.add_to_cart()
     page.should_not_be_success_message()
 
-@pytest.mark.xfail(reason="Success message disappearing in 4 sec after adding to cart has not been implemented yet")
+@pytest.mark.xfail(reason="Has to fail as has not been implemented yet")
 def test_message_disappeared_after_adding_product_to_basket(browser):
     """Checking for 4 seconds if success message disappears after adding to cart."""
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1"
@@ -107,6 +108,7 @@ def test_guest_should_see_login_link_on_product_page(browser):
     page.open()
     page.should_be_login_link()
 
+@pytest.mark.need_review
 def test_guest_can_go_to_login_page_from_product_page(browser):
     """Checking if it's possible to go to the login page.
 
@@ -123,6 +125,7 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page.should_be_login_url()
 
 @pytest.mark.new
+@pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     """Checking if the basket is empty.
 
