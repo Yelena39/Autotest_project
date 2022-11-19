@@ -18,10 +18,9 @@ class TestUserAddToBasketFromProductPage():
         checking if the new user is authorized
 
         """
-        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1"
+        link = "http://selenium1py.pythonanywhere.com/en-gb/accounts/login/"
         page = LoginPage(browser, link)
         page.open()
-        page.go_to_login_page()
         email = str(time.time()) + "@fakemail.org"
         password = str(time.time())
         page.register_new_user(email, password)
@@ -138,10 +137,11 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
 
     """
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
-    page = BasketPage(browser, link)
+    page = ProductPage(browser, link)
     page.open()
     page.should_be_basket_btn()
     page.go_to_basket_page()
     page.should_be_basket_url()
-    page.should_be_empty_basket()
-    page.should_be_empty_basket_message()
+    basket_page = BasketPage(browser, browser.current_url)
+    basket_page.should_be_empty_basket()
+    basket_page.should_be_empty_basket_message()
