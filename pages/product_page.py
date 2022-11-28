@@ -52,7 +52,7 @@ class ProductPage(BasePage):
 
     def should_disappear_success_message(self):
         """Checking for 4 seconds if success message disappears from the page."""
-        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), "Success message has not disappeared in 4 sec, but should has"
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), "Success message has not disappeared in 4 sec, but should have"
 
     def should_not_be_success_message(self):
         """Checking for 4 seconds if success message is absent from the page."""
