@@ -1,14 +1,16 @@
 # Autotest_project
 ___
 
-### Полезная инфо:
+### Useful info:
 
+- cmd command available parameters (*conftest.py*):  
+--language=... *English language is set by default*  
+--headless=true *tests will run in a visible mode by default*  
+--browser_name=firefox *tests will run in a chrome browser by default*  
 
-- Тесты should_be_login_form и should_be_register_form вынесены в test_login_page.py (тесты для страницы с логином и регистрацией)
+- **implicitly_wait** method is available, currently commented out *(base_page.py)*
 
-- Метод **implicitly_wait** закомментирован *(base_page.py)*
-
-- Доступные метки:
+- Available marks:
 
 **login_guest:**  
 test_guest_should_see_login_link *(test_main_page.py)*  
@@ -28,10 +30,10 @@ test_guest_cant_see_product_in_basket_opened_from_main_page *(test_main_page.py)
 test_user_cant_see_success_message *(test_product_page.py)*  
 test_user_can_add_product_to_basket *(test_product_page.py)*
 
-- Пример **параметризации**:  
+- **parametrize** example:  
 test_guest_can_add_product_to_basket *(test_product_page.py)*
 
-- Помечены **xfail**:  
+- The following tests are marked as **xfail**:  
 test_guest_can_add_product_to_basket *(test_product_page.py)*  
 test_guest_cant_see_success_message_after_adding_product_to_basket *(test_product_page.py)*  
 test_message_disappeared_after_adding_product_to_basket *(test_product_page.py)*
@@ -39,4 +41,4 @@ test_message_disappeared_after_adding_product_to_basket *(test_product_page.py)*
 
 ------
 
-pytest -v --tb=line --language=en -m need_review
+pytest -v --tb=line --language=es --headless=true --browser_name=firefox -m need_review
