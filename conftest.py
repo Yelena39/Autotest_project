@@ -4,16 +4,24 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 def pytest_addoption(parser):
+    """Configuring browser type, language and headless mode cmd options"""
     parser.addoption('--browser_name', action='store', default='chrome',
                      help='Choose browser: chrome or firefox')
     parser.addoption('--language', action='store', default='en',
                      help='Choose language: any language is accepted')
     parser.addoption('--headless', action='store', default='false',
-                     help='Open a browser invisible, without GUI is used by default')
+                     help='Open browser in an invisible mode, without GUI')
 
 
 @pytest.fixture(scope='function')
 def browser(request):
+    """Configuring setup and teardown for every test.
+
+    Creating WebDriver object according to user defined cmd options:
+    browser type, language and headless mode.  
+    Closing the browser at the end of each test
+
+    """
     browser_name = request.config.getoption('browser_name')
     language = request.config.getoption('language')
     headless = request.config.getoption('headless')
